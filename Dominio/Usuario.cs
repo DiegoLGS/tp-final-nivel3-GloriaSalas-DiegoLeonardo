@@ -21,5 +21,12 @@ namespace dominio
         public string Imagen { get; set; }
 
         public bool Admin { get; set; }
+
+        public Usuario(string email, string pass, bool admin)
+        {
+            Email = email;
+            Pass = pass;
+            Admin = admin;
+        }
     }
 }

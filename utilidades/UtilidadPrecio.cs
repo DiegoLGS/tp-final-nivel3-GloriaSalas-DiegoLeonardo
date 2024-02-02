@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace utilidades
 {
-    public static class UtilidadesPrecio
+    public static class UtilidadPrecio
     {
         public static string limitarDecimales(object precio)
         {
@@ -25,9 +25,9 @@ namespace utilidades
             }
         }
 
-        public static bool noContieneSoloNumeros(string texto)
+        public static bool noContieneSoloNumerosOComa(string texto)
         {
-            Regex regex = new Regex(@"^\d+$");
+            Regex regex = new Regex(@"^\d+(,\d+)?$");
 
             return !regex.IsMatch(texto);
         }

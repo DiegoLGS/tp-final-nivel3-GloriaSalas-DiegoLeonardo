@@ -7,12 +7,11 @@ using System.Web.UI.WebControls;
 
 namespace tienda_web
 {
-    public partial class Error : System.Web.UI.Page
+    public partial class Registro : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(Session["error"] != null)
-                lblError.Text = Session["error"].ToString();                        
+            //^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
         }
     }
 }

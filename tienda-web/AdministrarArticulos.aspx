@@ -19,7 +19,8 @@
             z-index: 2;
             margin: 15% auto;
             padding: 20px;
-            border: 1px solid #888;
+            border: 2px solid #888;
+            border-radius: 12px;
             width: 80%;
             max-width: 500px;
         }
@@ -45,7 +46,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-    <h1>Panel de administración</h1>
+    <h1 class="mt-3 mb-3">Panel de administración</h1>
 
     <asp:UpdatePanel runat="server">
         <ContentTemplate>
@@ -67,16 +68,18 @@
                     <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
                     <asp:TemplateField HeaderText="Precio">
                         <ItemTemplate>
-                            <%# utilidades.UtilidadesPrecio.limitarDecimales(Eval("Precio")) %>
+                            <%# utilidades.UtilidadPrecio.limitarDecimales(Eval("Precio")) %>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:BoundField HeaderText="Marca" DataField="Marca.Descripcion" />
                     <asp:BoundField HeaderText="Categoria" DataField="Categoria.Descripcion" />
-                    <asp:CommandField ShowSelectButton="true" SelectText="Editar" HeaderText="Modificación" ControlStyle-CssClass="text-primary" ItemStyle-CssClass="ps-3" />
-                    <asp:CommandField ShowDeleteButton="true" DeleteText="Borrar" HeaderText="Eliminación" ControlStyle-CssClass="text-danger" ItemStyle-CssClass="ps-3" />
+                    <asp:CommandField ShowSelectButton="true" SelectText="Editar" HeaderText="Modificación" ControlStyle-CssClass="btn btn-sm btn-info" ItemStyle-CssClass="ps-3" />
+                    <asp:CommandField ShowDeleteButton="true" DeleteText="Borrar" HeaderText="Eliminación" ControlStyle-CssClass="btn btn-sm btn-danger" ItemStyle-CssClass="ps-3" />
                 </Columns>
             </asp:GridView>
-            <a href="FormularioPokemon.aspx" class="btn btn-primary">Agregar</a>
+            <div class="d-flex">
+                <a href="FormularioArticulo.aspx" class="btn btn-primary btn-lg ms-auto">Agregar nuevo artículo</a>
+            </div>
 
             <div runat="server" id="modal" class="modal" onclick="ocultar(event)" >
                 <div class="modal-contenido" >

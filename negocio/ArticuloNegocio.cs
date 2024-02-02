@@ -176,6 +176,59 @@ namespace negocio
             }
         }
 
+        public void agregar(Articulo nuevoArticulo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio) VALUES (@Codigo, @Nombre, @Descripcion, @IdMarca, @IdCategoria, @ImagenUrl, @Precio)");
+                datos.setearParametro("@Codigo", nuevoArticulo.Codigo);
+                datos.setearParametro("@Nombre", nuevoArticulo.Nombre);
+                datos.setearParametro("@Descripcion", nuevoArticulo.Descripcion);
+                datos.setearParametro("@IdMarca", nuevoArticulo.Marca.Id);
+                datos.setearParametro("@IdCategoria", nuevoArticulo.Categoria.Id);
+                datos.setearParametro("@ImagenUrl", nuevoArticulo.ImagenUrl);
+                datos.setearParametro("@Precio", nuevoArticulo.Precio);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void modificar(Articulo nuevoArticulo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("UPDATE ARTICULOS SET Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Descripcion, IdMarca = @IdMarca, IdCategoria = @IdCategoria, ImagenUrl = @ImagenUrl, Precio = @Precio WHERE Id = @Id");
+                datos.setearParametro("@Codigo", nuevoArticulo.Codigo);
+                datos.setearParametro("@Nombre", nuevoArticulo.Nombre);
+                datos.setearParametro("@Descripcion", nuevoArticulo.Descripcion);
+                datos.setearParametro("@IdMarca", nuevoArticulo.Marca.Id);
+                datos.setearParametro("@IdCategoria", nuevoArticulo.Categoria.Id);
+                datos.setearParametro("@ImagenUrl", nuevoArticulo.ImagenUrl);
+                datos.setearParametro("@Precio", nuevoArticulo.Precio);
+                datos.setearParametro("@Id", nuevoArticulo.Id);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
 
     }
 }

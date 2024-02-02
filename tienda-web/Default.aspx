@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/MiMaster.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="tienda_web._Default" %>
+﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/MiMaster.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="tienda_web.Default" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         .img {            
@@ -10,7 +10,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
-    <h1>Tienda Web</h1>
+    <h1 class="mt-3 mb-3">Tienda Web</h1>
 
     <asp:UpdatePanel runat="server">
         <ContentTemplate>
@@ -77,9 +77,8 @@
                                 <img src="<%#Eval("ImagenUrl") %>" onerror="this.src='https://www.mobismea.com/upload/iblock/2a0/2f5hleoupzrnz9o3b8elnbv82hxfh4ld/No%20Product%20Image%20Available.png'" class="img" alt="<%#Eval("Nombre") %> " />
                                 <div class="card-body">
                                     <h5 class="card-title"><%#Eval("Nombre") %></h5>
-                                    <p class="card-text text-decoration-underline fw-semibold">$<%# utilidades.UtilidadesPrecio.limitarDecimales(Eval("Precio")) %></p>
-                                    <p class="card-text fst-italic"><%#Eval("Descripcion") %></p>
-                                    <asp:Button Text="Ejemplo" CssClass="btn btn-primary" runat="server" ID="btnEjemplo" CommandArgument='<%# Eval("Id") %>' CommandName="ArticuloId" OnClick="btnEjemplo_Click" />
+                                    <p class="card-text text-decoration-underline fw-semibold">$<%# utilidades.UtilidadPrecio.limitarDecimales(Eval("Precio")) %></p>
+                                    <asp:Button Text="Ver detalles" CssClass="btn btn-primary" runat="server" ID="btnDetalle" CommandArgument='<%# Eval("Id") %>' CommandName="ArticuloId" OnClick="btnDetalle_Click" />
                                 </div>
                             </div>
                         </div>

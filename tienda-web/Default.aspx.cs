@@ -11,7 +11,7 @@ using utilidades;
 
 namespace tienda_web
 {
-    public partial class _Default : Page
+    public partial class Default : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -22,14 +22,6 @@ namespace tienda_web
                 repArticulos.DataSource = Session["listaArticulos"];
                 repArticulos.DataBind();
             }
-        }
-
-        protected void btnEjemplo_Click(object sender, EventArgs e)
-        {
-            string valor = ((Button)sender).CommandArgument;
-            Console.WriteLine(valor);
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "ConsoleLog", $"console.log('{valor}')", true);
-
         }
 
         protected void txtFiltro_TextChanged(object sender, EventArgs e)
@@ -64,7 +56,7 @@ namespace tienda_web
                 string criterio = ddlCriterio.SelectedItem.ToString();
                 string filtro = txtFiltroAvanzado.Text;
 
-                if (campo == "Precio" && UtilidadesPrecio.noContieneSoloNumeros(filtro))
+                if (campo == "Precio" && UtilidadPrecio.noContieneSoloNumerosOComa(filtro))
                 {
                     txtFiltroAvanzado.CssClass = "form-control is-invalid";                    
                     return;
@@ -103,7 +95,12 @@ namespace tienda_web
                 ddlCriterio.Items.Add("Termina con");
                 lblFiltroAvanzado.Text = "Filtro";
             }
-        }                
+        }
 
+        protected void btnDetalle_Click(object sender, EventArgs e)
+        {
+            string id = ((Button)sender).CommandArgument;
+            Response.Redirect("DetalleProducto.aspx?id=" + id);
+        }
     }
 }
