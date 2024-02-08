@@ -21,7 +21,13 @@ namespace tienda_web
                     Usuario usuario = (Usuario)Session["usuario"];
 
                     if (!string.IsNullOrEmpty(usuario.Imagen))
-                        imgAvatar.ImageUrl = "~/Imagenes/" + usuario.Imagen;
+                    {
+                        string rutaImagen = Server.MapPath("~/Imagenes/" + usuario.Imagen);
+
+                        if(System.IO.File.Exists(rutaImagen))
+                            imgAvatar.ImageUrl = "~/Imagenes/" + usuario.Imagen;
+                    }
+
                     txtNombre.Text = usuario.Nombre;
                     txtApellido.Text = usuario.Apellido;
                     txtEmail.Text = usuario.Email;
@@ -41,7 +47,7 @@ namespace tienda_web
         {
             try
             {
-                if (comprobarCampos() && comprobarLargoTexto())
+                if (UtilidadTexto.comprobarCampos(textBoxUsados(), lblAviso) && UtilidadTexto.comprobarLargoTexto(largosMaximos(), lblAviso))
                 {
                     UsuarioNegocio negocio = new UsuarioNegocio();
                     Usuario usuario = (Usuario)Session["usuario"];
@@ -72,56 +78,26 @@ namespace tienda_web
             }
         }
 
-        private bool comprobarCampos()
+        private TextBox[] textBoxUsados()
         {
-            TextBox[] textBoxes = { txtEmail, txtPassword };
-
-            bool camposValidados = true;
-
-            foreach (TextBox textBox in textBoxes)
+            return new TextBox[]
             {
-                if (string.IsNullOrEmpty(textBox.Text))
-                {
-                    camposValidados = false;
-                    textBox.CssClass = "form-control is-invalid";
-                }
-                else
-                {
-                    textBox.CssClass = "form-control is-valid";
-                }
-            }          
-
-            return camposValidados;
-        }
-
-        private bool comprobarLargoTexto()
-        {
-            bool largosValidados = true;
-
-            Dictionary<TextBox, int> largoMaximos = new Dictionary<TextBox, int>()
-            {
-                { txtEmail, 100 },
-                { txtPassword, 20 },
+                txtEmail,
+                txtPassword
             };
-
-            foreach (var par in largoMaximos)
-            {
-                string texto = par.Key.Text;
-                int limite = par.Value;
-
-                if (texto.Length > limite)
-                {
-                    largosValidados = false;
-                    par.Key.CssClass = "form-control is-invalid";
-                }
-            }
-
-            if (!largosValidados)
-            {
-                lblAviso.Text = "*Los límites de caracteres son: Email: 100, Password: 20";
-            }
-
-            return largosValidados;
         }
+
+        private Dictionary<TextBox, int> largosMaximos()
+        {
+            return new Dictionary<TextBox, int>()
+            {
+                { txtNombre, 50 },
+                { txtApellido, 50 },
+                { txtEmail, 100 },
+                { txtPassword, 20 }
+            };
+        }
+
+        
     }
 }

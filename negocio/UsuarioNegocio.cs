@@ -72,5 +72,56 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+
+        public int insertarNuevo(Usuario nuevo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("INSERT INTO USERS (email, pass, admin) OUTPUT INSERTED.ID VALUES (@email, @pass, @admin)");
+                datos.setearParametro("@email", nuevo.Email);
+                datos.setearParametro("@pass", nuevo.Pass);
+                datos.setearParametro("@admin", nuevo.Admin);
+                return datos.ejecutarAccionScalar();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public bool existeUsuario(string email)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT COUNT(*) FROM USERS WHERE email = @email");
+                datos.setearParametro("@email", email);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    int coincidencias = (int)datos.Lector[0];
+                    return coincidencias > 0;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 }

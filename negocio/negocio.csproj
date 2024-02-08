@@ -44,8 +44,15 @@
     <Compile Include="AccesoDatos.cs" />
     <Compile Include="ArticuloNegocio.cs" />
     <Compile Include="CategoriaNegocio.cs" />
+    <Compile Include="FavoritoNegocio.cs" />
     <Compile Include="MarcaNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ServicioEmail.cs" />
     <Compile Include="UsuarioNegocio.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -53,6 +60,12 @@
       <Project>{0be49d46-6c39-4635-9447-e9b798fe1010}</Project>
       <Name>dominio</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

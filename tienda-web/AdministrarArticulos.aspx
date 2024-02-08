@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MiMaster.Master" AutoEventWireup="true" CodeBehind="AdministrarArticulos.aspx.cs" Inherits="tienda_web.AdministrarArticulos" %>
+﻿<%@ Page Title="Panel de administración" Language="C#" MasterPageFile="~/MiMaster.Master" AutoEventWireup="true" CodeBehind="AdministrarArticulos.aspx.cs" Inherits="tienda_web.AdministrarArticulos" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         .modal {

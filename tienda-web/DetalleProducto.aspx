@@ -33,7 +33,7 @@
     </div>
     <hr />
     <div class="d-flex">
-        <a href="/" class="btn btn-primary btn-lg ms-auto">Regresar</a>
+        <a href="#" onclick="history.go(-1);" class="btn btn-primary btn-lg ms-auto">Regresar</a>
     </div>
 <%}%>
 </asp:Content>

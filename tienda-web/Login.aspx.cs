@@ -19,44 +19,37 @@ namespace tienda_web
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            UsuarioNegocio negocio = new UsuarioNegocio();
-            Usuario usuario = new Usuario(txtEmail.Text, txtPassword.Text, false);
-
             try
             {
-                if (string.IsNullOrEmpty(txtEmail.Text) || string.IsNullOrEmpty(txtPassword.Text))
+                if(utilidades.UtilidadTexto.comprobarCampos(textBoxUsados(), lblAviso))
                 {
-                    lblAviso.Text = "*Debes completar ambos campos";
-                }
-                else
-                {
-                    if (negocio.Login(usuario))
+                    Usuario usuario = new Usuario(txtEmail.Text, txtPassword.Text, false);
+
+                    if (utilidades.UtilidadUsuario.logearUsuario(usuario, txtEmail, txtPassword, lblAviso))
                     {
                         Session.Add("usuario", usuario);
 
                         if (((Usuario)Session["usuario"]).Admin)
-                        {
                             Response.Redirect("AdministrarArticulos.aspx", false);
-                        }
                         else
-                        {
                             Response.Redirect("Default.aspx", false);
-                        }
                     }
-                    else
-                    {
-                        lblAviso.Text = "*No existe un usuario registrado con ese email y/o contraseña";
-                    }
-
                 }
-
             }
-            //catch (ThreadAbortException ex) { }
             catch (Exception ex)
             {
                 Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
+        }
+
+        private TextBox[] textBoxUsados()
+        {
+            return new TextBox[]
+            {
+                txtEmail,
+                txtPassword
+            };
         }
     }
 }

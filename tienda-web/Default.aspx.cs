@@ -56,15 +56,8 @@ namespace tienda_web
                 string criterio = ddlCriterio.SelectedItem.ToString();
                 string filtro = txtFiltroAvanzado.Text;
 
-                if (campo == "Precio" && UtilidadPrecio.noContieneSoloNumerosOComa(filtro))
-                {
-                    txtFiltroAvanzado.CssClass = "form-control is-invalid";                    
-                    return;
-                }
-                else
-                {
-                    txtFiltroAvanzado.CssClass = "form-control";
-                }
+                if (campo == "Precio" && UtilidadPrecio.noContieneSoloNumerosOComa(txtFiltroAvanzado, lblFiltroAvanzado))
+                    return;                
 
                 repArticulos.DataSource = negocio.filtrar(campo, criterio, filtro);
                 repArticulos.DataBind();
@@ -86,7 +79,6 @@ namespace tienda_web
                 ddlCriterio.Items.Add("Igual a");
                 ddlCriterio.Items.Add("Mayor o igual a");
                 ddlCriterio.Items.Add("Menor o igual a");
-                lblFiltroAvanzado.Text = "Filtro *solo números";
             }
             else
             {
@@ -101,6 +93,43 @@ namespace tienda_web
         {
             string id = ((Button)sender).CommandArgument;
             Response.Redirect("DetalleProducto.aspx?id=" + id);
+        }
+
+        protected void btnFavorito_Click(object sender, EventArgs e)
+        {
+            FavoritoNegocio negocio = new FavoritoNegocio();
+            int idArticulo = int.Parse(((Button)sender).CommandArgument);
+            int idUsuario = ((Usuario)Session["usuario"]).Id;
+            List<int> listaFavoritos = (List<int>)Session["listaFavoritos"];
+
+            if (listaFavoritos.Contains(idArticulo))
+            {
+                negocio.eliminar(idArticulo, idUsuario);
+                ((Button)sender).Text = "🤍";
+            }
+            else
+            {
+                negocio.agregar(idArticulo, idUsuario);
+                ((Button)sender).Text = "❤";
+            }
+        }
+
+        protected void repArticulos_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                Button btnFavorito = (Button)e.Item.FindControl("btnFavorito");
+                int articuloId = (int)DataBinder.Eval(e.Item.DataItem, "Id");
+                List<int> listaFavoritos = (List<int>)Session["listaFavoritos"];
+
+                if(listaFavoritos != null)
+                {
+                    if (listaFavoritos.Contains(articuloId))
+                        btnFavorito.Text = "❤";
+                    else
+                        btnFavorito.Text = "🤍";
+                }
+            }
         }
     }
 }

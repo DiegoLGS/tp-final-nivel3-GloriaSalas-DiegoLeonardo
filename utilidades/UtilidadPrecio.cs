@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 
 namespace utilidades
 {
@@ -25,11 +26,23 @@ namespace utilidades
             }
         }
 
-        public static bool noContieneSoloNumerosOComa(string texto)
+        public static bool noContieneSoloNumerosOComa(TextBox textoAComprobar, Label lblAviso)
         {
             Regex regex = new Regex(@"^\d+(,\d+)?$");
 
-            return !regex.IsMatch(texto);
+            if (!regex.IsMatch(textoAComprobar.Text))
+            {
+                textoAComprobar.CssClass = "form-control is-invalid";
+                lblAviso.Text = "*Solo se admiten números y una coma";
+
+                return true;
+            }
+            else
+            {
+                textoAComprobar.CssClass = "form-control is-valid";
+
+                return false;
+            }            
         }
     }
 }

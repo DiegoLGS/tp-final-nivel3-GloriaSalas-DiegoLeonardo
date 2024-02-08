@@ -1,5 +1,10 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MiMaster.Master" AutoEventWireup="true" CodeBehind="MiPerfil.aspx.cs" Inherits="tienda_web.MiPerfil" %>
+﻿<%@ Page Title="Mi Perfil" Language="C#" MasterPageFile="~/MiMaster.Master" AutoEventWireup="true" CodeBehind="MiPerfil.aspx.cs" Inherits="tienda_web.MiPerfil" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        .img-fluid {
+            max-height: 450px;
+        }
+    </style>
     <script>        
         function mostrarImagen(input) {
             if (input.files && input.files[0]) {
@@ -43,7 +48,6 @@
                 <asp:TextBox runat="server" ID="txtPassword" CssClass="form-control" MaxLength="20" />
             </div>
         </div>
-    
                 
     </div>
                  
