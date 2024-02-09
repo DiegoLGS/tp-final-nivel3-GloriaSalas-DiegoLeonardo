@@ -57,7 +57,52 @@
                     <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtFiltro_TextChanged" />
                 </div>
             </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <asp:CheckBox Text="*Filtro avanzado"
+                            CssClass="" ID="chkAvanzado" runat="server"
+                            AutoPostBack="true"
+                            OnCheckedChanged="chkAvanzado_CheckedChanged" />
+                    </div>
+                </div>
 
+    <%if (this.chkAvanzado.Checked)
+        {
+    %>
+
+            <div class="row">
+                <div class ="col-3">
+                    <div class="mb-3">
+                        <asp:Label Text="Campo" ID="lblCampo" runat="server" />
+                        <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control" ID="ddlCampo" OnSelectedIndexChanged="ddlCampo_SelectedIndexChanged" >
+                            <asp:ListItem Text="Nombre" />
+                            <asp:ListItem Text="Marca" />
+                            <asp:ListItem Text="Categoria" />
+                            <asp:ListItem Text="Precio" />
+                        </asp:DropDownList>
+                    </div>
+                </div>
+                <div class ="col-3">
+                    <div class="mb-3">
+                        <asp:Label Text="Criterio" runat="server" />
+                        <asp:DropDownList runat="server" ID="ddlCriterio" CssClass="form-control" />
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="mb-3">
+                        <asp:Label Text="Filtro" ID="lblFiltroAvanzado" runat="server" />
+                        <asp:TextBox runat="server" ID="txtFiltroAvanzado" CssClass="form-control" />
+                    </div>
+                </div>
+            
+                <div class="col-3 d-flex align-items-end">
+                    <div class="mb-3">
+                        <asp:Button Text="Buscar" runat="server" CssClass="btn btn-primary" id="btnBuscar" OnClick="btnBuscar_Click" />
+                    </div>
+                </div>
+            </div>
+
+    <%}%>
             <asp:GridView runat="server" ID="dgvArticulos" CssClass="table table-dark table-striped table-responsive-md" AutoGenerateColumns="false" 
                 DataKeyNames="Id" 
                 OnSelectedIndexChanged="dgvArticulos_SelectedIndexChanged"

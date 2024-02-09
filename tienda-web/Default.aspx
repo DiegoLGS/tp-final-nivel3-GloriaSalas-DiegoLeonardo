@@ -25,6 +25,20 @@
             transform: scale(1.2);
         }        
     </style>
+
+    <script>
+        function limpiarTexto(textBox) {
+            if (textBox.value == textBox.defaultValue) {
+                textBox.value = '';
+            }
+        }
+
+        function recuperarTexto(textBox) {
+            if (textBox.value == '') {
+                textBox.value = textBox.defaultValue;
+            }
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
@@ -37,7 +51,7 @@
             <div class="col-sm-12 col-md-6">
                 <div class="mb-3">
                     <asp:Label Text="Buscar por nombre:" runat="server" />
-                    <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtFiltro_TextChanged" />
+                    <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" Text="Samsung Galaxy..." AutoPostBack="true" OnTextChanged="txtFiltro_TextChanged" onfocus="limpiarTexto(this)" onblur="recuperarTexto(this)" />
                 </div>
             </div>
             <div class="col-6">
@@ -97,12 +111,12 @@
                          <%if(utilidades.UtilidadLogin.sesionActiva(Session["usuario"]) && !utilidades.UtilidadLogin.esAdmin(Session["usuario"]))
                            {
                          %>
-                                <asp:Button runat="server" CssClass="favorito" ID="btnFavorito" CommandArgument='<%# Eval("Id") %>' CommandName="ArticuloId" OnClick="btnFavorito_Click" />
+                                <asp:Button runat="server" CssClass="favorito" ID="btnFavorito" CommandArgument='<%# Eval("Id") %>' CommandName="ArticuloId" OnClick="btnFavorito_Click" ToolTip="¡Agregar a favoritos!" />
                          <%}%>
 
                                 <img src="<%#Eval("ImagenUrl") %>" onerror="this.src='https://www.mobismea.com/upload/iblock/2a0/2f5hleoupzrnz9o3b8elnbv82hxfh4ld/No%20Product%20Image%20Available.png'" class="img" alt="<%#Eval("Nombre") %> " />
                                 <div class="card-body">
-                                    <h5 class="card-title"><%#Eval("Nombre") %></h5>
+                                    <h5 class="card-title text-truncate"><%#Eval("Nombre") %></h5>
                                     <p class="card-text text-decoration-underline fw-semibold">$<%# utilidades.UtilidadPrecio.limitarDecimales(Eval("Precio")) %></p>
                                     <asp:Button  runat="server" Text="Comprar" CssClass="btn btn-primary" ID="btnComprar" />
                                     <asp:Button  runat="server" Text="Detalles" CssClass="btn btn-secondary" ID="btnDetalle" CommandArgument='<%# Eval("Id") %>' CommandName="ArticuloId" OnClick="btnDetalle_Click" />

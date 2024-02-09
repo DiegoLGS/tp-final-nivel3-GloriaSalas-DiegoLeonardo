@@ -23,7 +23,7 @@ namespace tienda_web
                 imgArticulo.ImageUrl = articuloSeleccionado.ImagenUrl;
                 tituloCard.Text = articuloSeleccionado.Nombre;
                 descripcionCard.Text = articuloSeleccionado.Descripcion;
-                precioCard.Text = "$" + articuloSeleccionado.Precio.ToString();
+                precioCard.Text = "$" + utilidades.UtilidadPrecio.limitarDecimales(articuloSeleccionado.Precio.ToString());
                 marcaCard.Text = "Marca: " + articuloSeleccionado.Marca.Descripcion;
                 categoriaCard.Text = "Categoría: " + articuloSeleccionado.Categoria.Descripcion;
                 codigoCard.Text = "Código: " + articuloSeleccionado.Codigo.ToString();
@@ -60,7 +60,7 @@ namespace tienda_web
             }
             else
             {
-                lblAviso.Text = "No se seleccionó ningún artículo para ver detalles";
+                lblAviso.Text = "No se seleccionó ningún artículo para ver detalles 👀";
             }
         }
     }

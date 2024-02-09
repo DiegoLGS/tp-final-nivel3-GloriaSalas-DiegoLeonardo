@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using utilidades;
 
 namespace tienda_web
 {
@@ -41,6 +42,64 @@ namespace tienda_web
             List<Articulo> listaFiltrada = lista.FindAll(x => x.Nombre.ToUpper().Contains(txtFiltro.Text.ToUpper()));
             dgvArticulos.DataSource = listaFiltrada;
             dgvArticulos.DataBind();
+        }
+
+        protected void chkAvanzado_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkAvanzado.Checked)
+            {
+                ddlCampo_SelectedIndexChanged(sender, e);
+            }
+            else
+            {
+                dgvArticulos.DataSource = Session["listaArticulos"];
+                dgvArticulos.DataBind();
+            }
+
+            txtFiltro.Enabled = !chkAvanzado.Checked;
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ArticuloNegocio negocio = new ArticuloNegocio();
+                string campo = ddlCampo.SelectedItem.ToString();
+                string criterio = ddlCriterio.SelectedItem.ToString();
+                string filtro = txtFiltroAvanzado.Text;
+
+                if (campo == "Precio" && UtilidadPrecio.noContieneSoloNumeros(txtFiltroAvanzado, lblFiltroAvanzado))
+                    return;
+
+                dgvArticulos.DataSource = negocio.filtrar(campo, criterio, filtro);
+                dgvArticulos.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex);
+                Response.Redirect("Error.aspx");
+            }
+        }
+
+
+        protected void ddlCampo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ddlCriterio.Items.Clear();
+            txtFiltro.CssClass = "form-control";
+
+            if (ddlCampo.SelectedItem.ToString() == "Precio")
+            {
+                ddlCriterio.Items.Add("Igual a");
+                ddlCriterio.Items.Add("Mayor o igual a");
+                ddlCriterio.Items.Add("Menor o igual a");
+            }
+            else
+            {
+                ddlCriterio.Items.Add("Contiene");
+                ddlCriterio.Items.Add("Comienza con");
+                ddlCriterio.Items.Add("Termina con");
+                lblFiltroAvanzado.Text = "Filtro";
+            }
         }
 
         protected void dgvArticulos_RowDeleting(object sender, GridViewDeleteEventArgs e)

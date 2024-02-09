@@ -77,10 +77,10 @@ namespace negocio
                     switch (criterio)
                     {
                         case "Mayor o igual a":
-                            consulta += "Precio > " + filtro;
+                            consulta += "Precio >= " + filtro;
                             break;
                         case "Menor o igual a":
-                            consulta += "Precio < " + filtro;
+                            consulta += "Precio <= " + filtro;
                             break;
                         default:
                             consulta += "Precio = " + filtro;

@@ -1,5 +1,18 @@
 ﻿<%@ Page Title="Login" Language="C#" MasterPageFile="~/MiMaster.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="tienda_web.Login" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script>
+        function limpiarTexto(textBox) {
+            if (textBox.value == textBox.defaultValue) {
+                textBox.value = '';
+            }
+        }
+
+        function recuperarTexto(textBox) {
+            if (textBox.value == '') {
+                textBox.value = textBox.defaultValue;
+            }
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container d-flex" style="min-height:82vh">
@@ -7,7 +20,7 @@
             <h3 class="mt-3 mb-3">Login</h3>
             <div class="mb-3">
                 <label class="form-label">Email</label>
-                <asp:TextBox runat="server" cssclass="form-control" Required="True" ID="txtEmail" />
+                <asp:TextBox runat="server" cssclass="form-control" Required="True" ID="txtEmail" Text="tuemail@gmail.com" onfocus="limpiarTexto(this)" onblur="recuperarTexto(this)" />
             </div>
             <div class="mb-3">
                 <label class="form-label">Password</label>

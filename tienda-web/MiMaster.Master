@@ -7,7 +7,8 @@
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    
+    <link rel="icon" href="favicon.ico" />
+    <link href="aa  " rel="icon" />
     <style>        
         #imgAvatar {            
             height: 40px;
@@ -60,7 +61,7 @@
                {     
              %>
                     <a href="Login.aspx" class="btn btn-success me-2">Login</a>
-                    <a href="Registro.aspx" class="btn btn-outline-primary me-2">Registrarse</a>
+                    <a href="Registro.aspx" class="btn btn-primary me-2">Registrarse</a>
              <%
                }
                else 

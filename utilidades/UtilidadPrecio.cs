@@ -16,7 +16,7 @@ namespace utilidades
             {
                 decimal precioDecimal = Convert.ToDecimal(precio);
                 precioDecimal = Math.Truncate(100 * precioDecimal) / 100;
-                string precioFormateado = precioDecimal.ToString("0.00");
+                string precioFormateado = precioDecimal.ToString("N2");
 
                 return precioFormateado;
             }
@@ -43,6 +43,25 @@ namespace utilidades
 
                 return false;
             }            
+        }
+
+        public static bool noContieneSoloNumeros(TextBox textoAComprobar, Label lblAviso)
+        {
+            Regex regex = new Regex(@"^\d+$");
+
+            if (!regex.IsMatch(textoAComprobar.Text))
+            {
+                textoAComprobar.CssClass = "form-control is-invalid";
+                lblAviso.Text = "*Solo se admiten números";
+
+                return true;
+            }
+            else
+            {
+                textoAComprobar.CssClass = "form-control is-valid";
+
+                return false;
+            }
         }
     }
 }

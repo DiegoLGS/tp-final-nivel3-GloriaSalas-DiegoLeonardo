@@ -56,7 +56,7 @@ namespace tienda_web
                 string criterio = ddlCriterio.SelectedItem.ToString();
                 string filtro = txtFiltroAvanzado.Text;
 
-                if (campo == "Precio" && UtilidadPrecio.noContieneSoloNumerosOComa(txtFiltroAvanzado, lblFiltroAvanzado))
+                if (campo == "Precio" && UtilidadPrecio.noContieneSoloNumeros(txtFiltroAvanzado, lblFiltroAvanzado))
                     return;                
 
                 repArticulos.DataSource = negocio.filtrar(campo, criterio, filtro);
@@ -73,6 +73,7 @@ namespace tienda_web
         protected void ddlCampo_SelectedIndexChanged(object sender, EventArgs e)
         {
             ddlCriterio.Items.Clear();
+            txtFiltro.CssClass = "form-control";
 
             if (ddlCampo.SelectedItem.ToString() == "Precio")
             {

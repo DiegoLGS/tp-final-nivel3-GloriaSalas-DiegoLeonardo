@@ -71,6 +71,7 @@
     <Content Include="Default.aspx" />
     <Content Include="DetalleProducto.aspx" />
     <Content Include="Error.aspx" />
+    <Content Include="favicon.ico" />
     <Content Include="Favoritos.aspx" />
     <Content Include="FormularioArticulo.aspx" />
     <Content Include="Login.aspx" />
