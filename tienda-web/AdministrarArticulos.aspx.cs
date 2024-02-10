@@ -14,14 +14,22 @@ namespace tienda_web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["listaArticulos"] == null)
-            {                
-                ArticuloNegocio negocio = new ArticuloNegocio();
-                Session.Add("listaArticulos", negocio.listar());                
-            }
+            try
+            {
+                if (Session["listaArticulos"] == null)
+                {                
+                    ArticuloNegocio negocio = new ArticuloNegocio();
+                    Session.Add("listaArticulos", negocio.listar());                
+                }
 
-            dgvArticulos.DataSource = Session["listaArticulos"];
-            dgvArticulos.DataBind();
+                dgvArticulos.DataSource = Session["listaArticulos"];
+                dgvArticulos.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         protected void dgvArticulos_SelectedIndexChanged(object sender, EventArgs e)

@@ -96,8 +96,6 @@ namespace tienda_web
                 { txtEmail, 100 },
                 { txtPassword, 20 }
             };
-        }
-
-        
+        }        
     }
 }

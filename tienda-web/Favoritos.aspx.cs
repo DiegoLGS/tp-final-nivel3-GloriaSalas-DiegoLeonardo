@@ -13,26 +13,35 @@ namespace tienda_web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                ArticuloNegocio negocio = new ArticuloNegocio();
-                List<int> listaFavoritos = (List<int>)Session["listaFavoritos"];
-                
-                if(listaFavoritos.Count > 0)
+                if (!IsPostBack)
                 {
-                    List<Articulo> listaArticulos = new List<Articulo>();
+                    ArticuloNegocio negocio = new ArticuloNegocio();
+                    List<int> listaFavoritos = (List<int>)Session["listaFavoritos"];
 
-                    foreach (int id in listaFavoritos)
+                    if (listaFavoritos.Count > 0)
                     {
-                        Articulo nuevoArticulo = new Articulo();
-                        nuevoArticulo = negocio.listar(id.ToString())[0];
-                        listaArticulos.Add(nuevoArticulo);                    
-                    }
+                        List<Articulo> listaArticulos = new List<Articulo>();
 
-                    repArticulos.DataSource = listaArticulos;
-                    repArticulos.DataBind();
+                        foreach (int id in listaFavoritos)
+                        {
+                            Articulo nuevoArticulo = new Articulo();
+                            nuevoArticulo = negocio.listar(id.ToString())[0];
+                            listaArticulos.Add(nuevoArticulo);
+                        }
+
+                        repArticulos.DataSource = listaArticulos;
+                        repArticulos.DataBind();
+                    }
                 }
+
             }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }            
         }
 
         protected void btnDetalle_Click(object sender, EventArgs e)

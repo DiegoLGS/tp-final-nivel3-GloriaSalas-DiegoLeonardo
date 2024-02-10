@@ -15,12 +15,20 @@ namespace tienda_web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                ArticuloNegocio negocio = new ArticuloNegocio();
-                Session.Add("listaArticulos", negocio.listar());
-                repArticulos.DataSource = Session["listaArticulos"];
-                repArticulos.DataBind();
+                if (!IsPostBack)
+                {
+                    ArticuloNegocio negocio = new ArticuloNegocio();
+                    Session.Add("listaArticulos", negocio.listar());
+                    repArticulos.DataSource = Session["listaArticulos"];
+                    repArticulos.DataBind();
+                }
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
             }
         }
 

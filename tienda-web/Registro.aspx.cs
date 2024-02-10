@@ -11,11 +11,6 @@ namespace tienda_web
 {
     public partial class Registro : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            
-        }
-
         protected void btnRegistro_Click(object sender, EventArgs e)
         {
             try
@@ -69,7 +64,5 @@ namespace tienda_web
                 { txtPassword, 20 }
             };
         }
-
-
     }
 }
